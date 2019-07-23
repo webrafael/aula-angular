@@ -14,7 +14,10 @@ import { CartPageComponent } from './pages/store/cart-page/cart-page.component';
 import { FramePageComponent } from './pages/master/frame.page';
 import { ProductCardComponent } from './components/storage/product-card/product-card.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+<<<<<<< HEAD
 import { MaskDirective } from './directives/mask.directive';
+=======
+>>>>>>> 768fd2bdbbf7734e21725501b953b05b1eb0c8b9
 
 @NgModule({
   declarations: [

@@ -35,6 +35,7 @@ export class LoginPageComponent implements OnInit {
     if (token) {
       this.busy = true;
       this
+<<<<<<< HEAD
         .service
         .refreshToken()
         .subscribe(
@@ -48,6 +49,20 @@ export class LoginPageComponent implements OnInit {
             this.busy = false;
           }
         );
+=======
+      .service
+      .refreshToken()
+      .subscribe(
+        (data: any) => {
+          localStorage.setItem('petshop.token', data.token);
+          this.busy = false;
+        },
+        (err) => {
+          localStorage.clear();
+          this.busy = false;
+        }
+      );
+>>>>>>> 768fd2bdbbf7734e21725501b953b05b1eb0c8b9
     }
   }
 
@@ -58,12 +73,19 @@ export class LoginPageComponent implements OnInit {
       .authenticate(this.form.value)
       .subscribe(
         (data: any) => {
+<<<<<<< HEAD
           console.log(data);
+=======
+>>>>>>> 768fd2bdbbf7734e21725501b953b05b1eb0c8b9
           localStorage.setItem('petshop.token', data.token);
           this.busy = false;
         },
         (err) => {
           console.log(err);
+<<<<<<< HEAD
+=======
+          this.busy = false;
+>>>>>>> 768fd2bdbbf7734e21725501b953b05b1eb0c8b9
         }
       );
   }
