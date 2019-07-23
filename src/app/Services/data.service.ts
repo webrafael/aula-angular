@@ -12,11 +12,7 @@ export class DataService {
 
     public composeHeaders() {
         const token   = localStorage.getItem('petshop.token');
-<<<<<<< HEAD
         const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
-=======
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
->>>>>>> 768fd2bdbbf7734e21725501b953b05b1eb0c8b9
         return headers;
     }
 
