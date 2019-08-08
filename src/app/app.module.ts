@@ -10,11 +10,14 @@ import { ResetPasswordPageComponent } from './pages/account/reset-password-page/
 import { SignupPageComponent } from './pages/account/signup-page/signup-page.component';
 import { PetsPageComponent } from './pages/account/pets-page/pets-page.component';
 import { ProductsPageComponent } from './pages/store/products-page/products-page.component';
+import { CheckoutPageComponent } from './pages/store/checkout-page/checkout-page.component';
 import { CartPageComponent } from './pages/store/cart-page/cart-page.component';
 import { FramePageComponent } from './pages/master/frame.page';
 import { ProductCardComponent } from './components/storage/product-card/product-card.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { MaskDirective } from './directives/mask.directive';
+import { DataService } from './Services/data.service';
+import { AuthService } from './Services/auth.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { MaskDirective } from './directives/mask.directive';
     CartPageComponent,
     FramePageComponent,
     ProductCardComponent,
-    LoadingComponent
+    LoadingComponent,
+    CheckoutPageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,7 @@ import { MaskDirective } from './directives/mask.directive';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DataService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
