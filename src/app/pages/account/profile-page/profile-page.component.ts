@@ -1,16 +1,16 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 import { DataService } from 'src/app/Services/data.service';
-import { CustomValidator } from 'src/app/pages/validators/custom.validators';
+import { ToastrService } from 'ngx-toastr';
+import { CustomValidator } from '../../validators/custom.validators';
 
 @Component({
-  selector: 'app-signup-page',
-  templateUrl: './signup-page.component.html'
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.component.html'
 })
-export class SignupPageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit {
 
   public form: FormGroup;
   public busy = false;
@@ -24,49 +24,55 @@ export class SignupPageComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.compose([
         Validators.minLength(3),
-        Validators.maxLength(14),
+        Validators.maxLength(80),
         Validators.required,
-        CustomValidator.isCpf()
       ])],
-      document: ['', Validators.compose([
-        Validators.minLength(14),
-        Validators.maxLength(14),
-        Validators.required,
-        CustomValidator.isCpf()
-      ])],
+      document: [{ value: '', disabled: true }],
       email: ['', Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(120),
         Validators.required,
         CustomValidator.EmailValidator
-      ])],
-      password: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.required
       ])]
     });
   }
 
   ngOnInit() {
+    this.busy = true;
+    this
+      .service
+      .getProfile()
+      .subscribe(
+        (data: any) => {
+          this.busy = false;
+          this.form.setValue({
+            name: data.name,
+            document: data.document,
+            email: data.email
+          });
+        },
+        (err) => {
+          this.busy = false;
+          console.log(err);
+        }
+      );
   }
 
   submit() {
     this.busy = true;
     this
       .service
-      .create(this.form.value)
+      .updateProfile(this.form.value)
       .subscribe(
         (data: any) => {
           this.busy = false;
-          this.toastr.success(data.message, 'Bem-vindo!');
-          this.router.navigate(['/login']);
+          this.toastr.success(data.message, 'Atualização completa!');
         },
         (err) => {
           console.log(err);
           this.busy = false;
-          this.toastr.error('erro', 'Erro!');
         }
       );
   }
+
 }
